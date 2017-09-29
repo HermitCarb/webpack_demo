@@ -1,3 +1,17 @@
 .welcome {
   color: red;
 }
+
+.image1 {
+  width: 200px;
+  height: 200px;
+  background-image: url('./image/iconrar.png');
+  background-size: contain;
+}
+
+.image2 {
+  width: 200px;
+  height: 200px;
+  background-image: url('./image/iconzip.png');
+  background-size: contain;
+}

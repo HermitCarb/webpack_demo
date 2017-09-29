@@ -13,6 +13,18 @@ module.exports = {
         'style-loader',
         'css-loader'
       ]
+    }, {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 102400,
+              name: '[name].[ext]',
+              outputPath: 'image/'
+            }
+          }
+        ]
     }]
   }
 };
