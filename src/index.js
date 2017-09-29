@@ -1,2 +1,3 @@
-const welcome = require('./Welcome.js');
+import welcome from './Welcome.js'
+
 document.querySelector("#root").appendChild(welcome());
