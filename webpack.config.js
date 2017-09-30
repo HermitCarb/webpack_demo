@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
   entry: {
@@ -17,26 +18,34 @@ module.exports = {
   module: {
     rules: [{
       test: /\.css$/,                                   // CSS loader
-      use: [
-        'style-loader',
-        'css-loader'
-      ]
+      use: ExtractTextPlugin.extract({
+        fallback: "style-loader",
+        use: "css-loader"
+      })
     }, {
       test: /\.(png|svg|jpg|gif)$/,                     // 图片loader
       use: [
         {
           loader: 'url-loader',
           options: {
+            publicPath: path.resolve(__dirname, 'dist'),
             limit: 102400,
             name: '[name]_[hash:20].[ext]',
-            outputPath: 'image/'
+            outputPath: '/image/'
           }
         }
       ]
     }]
   },
   plugins: [
-    new CleanWebpackPlugin(['dist/*.*']),               // 清理dist文件件
+    new CleanWebpackPlugin([                            // 清理dist文件件
+      'dist/*.*',
+      'dist/image/*.*',
+      'dist/style/*.*'
+    ]),
+    new ExtractTextPlugin({                             // CSS分离
+      filename: 'style/[name]_[contenthash:20].css',
+    }),
     new webpack.DllReferencePlugin({                    // webpack Dll
       context: __dirname,
       manifest: require(path.resolve(__dirname, 'dist/lib/vendor_manifest.json')),

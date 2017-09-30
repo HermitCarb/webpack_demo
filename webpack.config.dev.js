@@ -1,6 +1,9 @@
 const merge = require('webpack-merge');
 const webpack = require('webpack');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const config = require('./webpack.config.js');
+
+// 删除默认配置线的CleanWebpackPlugin插件
 
 module.exports = merge(config, {
   devtool: 'cheap-module-eval-source-map',
